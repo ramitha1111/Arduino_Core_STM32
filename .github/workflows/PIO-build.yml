@@ -38,6 +38,9 @@ on:
       - '!tools/platformio/platformio-build.py'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   pio_build:
     runs-on: ubuntu-latest
