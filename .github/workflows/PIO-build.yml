@@ -1,3 +1,8 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 1 optimization:
+# - [MEDIUM] Add concurrency group to "PIO-build.yml"
+# Estimated savings: ~2 min/run
+#
 name: PlatformIO build
 on:
   push:
@@ -38,6 +43,10 @@ on:
       - '!tools/platformio/platformio-build.py'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   pio_build:
     runs-on: ubuntu-latest
